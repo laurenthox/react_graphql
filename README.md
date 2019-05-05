@@ -1,7 +1,7 @@
 ## React and Graphql
 
 ### Requirements
-To run this project you need `docker` and `docker-compose`. If you do not have them installed on your machine please follow [this](./installingDockerAndDockerCompose) guide first on installing them.
+To run this project you need `docker` and `docker-compose`. If you do not have them installed on your machine please follow [this](./installingDockerAndDockerCompose.md) guide first on installing them.
 
 
 ### How to run the app
