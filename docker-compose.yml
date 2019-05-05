@@ -1,0 +1,13 @@
+version: "3"
+services:
+  react_graphql:
+    container_name: react_graphql
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/usr/src/app
+      - "/usr/src/app/node_modules"
+    command: "npm start"
