@@ -5,11 +5,10 @@ import { Info, Span } from "../../styles/CountryDetails";
 
 export const renderCountryInfoOrWeatherInfo = (
   country, { time, temperature, summary },
-  countryInfo,
   showWeather,
   updateLanguageCode,
   updateContinentCode,
-
+  countryInfo
 ) => {
   return !showWeather ? <Info>
     <div>
@@ -27,8 +26,12 @@ export const renderCountryInfoOrWeatherInfo = (
         </Span></p>
       <p>Flag { country.emoji }</p>
       <p>Number of Languages: { country.languages.length }.</p>
-      { country.languages.map(language => <Span key={ language.code }
-                                                onClick={ () => updateLanguageCode(language.code) }>{ language.name }</Span>) }
+      { country.languages.map(language => (
+        <Span key={ language.code }
+              onClick={ () => updateLanguageCode(language.code) }>
+          { language.name }
+        </Span>
+      )) }
       <p>Click language name for more info</p>
     </div>
   </Info> : <Info>

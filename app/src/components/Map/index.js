@@ -32,7 +32,7 @@ function Map() {
   }, [latLng]);
 
   const markerRef = useRef(null);
-  return <div id="map" style={style} />;
+  return <div id="map" style={ style }/>;
 }
 
 export default Map;
