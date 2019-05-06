@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const defaultState = {
   countryCode: "CH",
@@ -15,49 +15,62 @@ const defaultState = {
 
 const Context = React.createContext(defaultState);
 
-export class Store extends React.Component {
-  state = defaultState;
+export const Store = ({ children }) => {
+  const [countryCode, setCountryCode] = useState(defaultState.countryCode);
+  const [countryName, setCountryName] = useState(defaultState.countryName);
+  const [latLng, setLatLng] = useState(defaultState.latLng);
+  const [showWeather, setShowWeather] = useState(defaultState.showWeather);
+  const [continentCode, setContinentCode] = useState(defaultState.continentCode);
+  const [languageCode, setLanguageCode] = useState(defaultState.languageCode);
+  const [modal, setModal] = useState(defaultState.modal);
 
-  updateCodeAndName = (countryCode, countryName) => {
-    this.setState({ countryCode, countryName });
+  const updateCodeAndName = (countryCode, countryName) => {
+    setCountryCode(countryCode);
+    setCountryName(countryName);
   };
 
-  onLatLngChange = latLng => {
-    this.setState({ latLng });
+  const onLatLngChange = latLng => setLatLng(latLng);
+
+  const updateShowWeather = showWeather => setShowWeather(showWeather);
+
+  const updateContinentCode = (continentCode) => {
+    setContinentCode(continentCode);
+    setModal(!modal);
   };
 
-  updateShowWeather = showWeather => {
-    this.setState({ showWeather });
+  const updateLanguageCode = languageCode => {
+    setLanguageCode(languageCode);
+    setModal(!modal);
   };
 
-  updateContinentCode = (continentCode) => {
-    this.setState({ continentCode, modal: !this.state.modal });
+  const showHideModal = () => {
+    setContinentCode('');
+    setLanguageCode('');
+    setModal(!modal);
   };
 
-  updateLanguageCode = (languageCode) => {
-    this.setState({ languageCode, modal: !this.state.modal });
-  };
-
-  showHideModal = () => {
-    this.setState({ modal: !this.state.modal, continentCode: '', languageCode: '' });
-  };
-
-  render() {
-    return (
-      <Context.Provider
-        value={{
-          ...this.state,
-          updateCodeAndName: this.updateCodeAndName,
-          onLatLngChange: this.onLatLngChange,
-          updateShowWeather: this.updateShowWeather,
-          updateContinentCode: this.updateContinentCode,
-          updateLanguageCode: this.updateLanguageCode,
-          showHideModal: this.showHideModal
-        }}>
-        { this.props.children }
-      </Context.Provider>
-    );
-  }
-}
+  return (
+    <Context.Provider
+      value={ {
+        ...defaultState,
+        countryCode,
+        countryName,
+        latLng,
+        showWeather,
+        continentCode,
+        modal,
+        languageCode,
+        setCountryName,
+        updateCodeAndName,
+        onLatLngChange,
+        updateShowWeather,
+        updateContinentCode,
+        updateLanguageCode,
+        showHideModal
+      } }>
+      { children }
+    </Context.Provider>
+  );
+};
 
 export default Context;
